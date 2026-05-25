@@ -1,0 +1,1618 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive Comparison Dashboard between MCA and M.Sc. Computer Science programs at RTMNU, Nagpur. Compare syllabus, credits, and career fits.">
+  <title>RTMNU Comparison Dashboard: MCA vs M.Sc. Computer Science</title>
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Premium Modern CSS Style Guide */
+    :root {
+      /* Harmonies Palettes */
+      --bg-base: hsl(224, 71%, 4%);
+      --bg-surface: rgba(30, 41, 59, 0.45);
+      --border-color: rgba(255, 255, 255, 0.08);
+      
+      --color-mca: hsl(262, 80%, 55%);
+      --color-mca-glow: hsla(262, 80%, 55%, 0.15);
+      --color-mca-gradient: linear-gradient(135deg, hsl(262, 85%, 60%), hsl(282, 75%, 45%));
+      
+      --color-msc: hsl(162, 85%, 42%);
+      --color-msc-glow: hsla(162, 85%, 42%, 0.15);
+      --color-msc-gradient: linear-gradient(135deg, hsl(162, 85%, 45%), hsl(178, 80%, 35%));
+      
+      --color-accent: hsl(45, 100%, 60%);
+      --text-main: hsl(210, 40%, 96%);
+      --text-muted: hsl(215, 25%, 70%);
+      --text-dim: hsl(215, 15%, 50%);
+      
+      --transition-base: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-elastic: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, hsla(262, 80%, 15%, 0.18) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, hsla(162, 85%, 12%, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, hsl(224, 71%, 3%) 0%, hsl(224, 71%, 1%) 100%);
+      background-attachment: fixed;
+    }
+    
+    /* Premium Header Area */
+    header {
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+      position: relative;
+    }
+    
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-mca), var(--color-msc));
+      border-radius: 2px;
+    }
+    
+    .university-tag {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, var(--color-mca), var(--color-msc));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+    
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(120deg, #ffffff 30%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+    
+    /* Layout Container */
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+    
+    /* Elegant Tab System */
+    .tabs-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      padding: 0.5rem;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .tabs {
+      display: flex;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 0.35rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .tab-btn {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: none;
+      background: transparent;
+      padding: 0.8rem 1.8rem;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: var(--transition-base);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .tab-btn:hover {
+      color: #fff;
+    }
+    
+    .tab-btn.active {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .tab-btn.active.mca-indicator {
+      border-bottom: 2px solid var(--color-mca);
+      border-radius: 50px 50px 0 0;
+    }
+    
+    /* Dashboard Panels */
+    .panel {
+      display: none;
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    
+    .panel.active {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Frosted Cards */
+    .glass-card {
+      background: var(--bg-surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.2rem;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      transition: var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    
+    /* Overview Tab Styling */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    @media (max-width: 900px) {
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .course-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .course-badge {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      padding: 0.4rem 1.2rem;
+      border-radius: 12px;
+      letter-spacing: -0.01em;
+    }
+    
+    .badge-mca {
+      background: var(--color-mca-glow);
+      color: hsl(262, 90%, 75%);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
+    }
+    
+    .badge-msc {
+      background: var(--color-msc-glow);
+      color: hsl(162, 90%, 70%);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+    }
+    
+    .meta-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .metric-box {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .metric-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    
+    .metric-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    /* Interactive credit gauges */
+    .chart-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    
+    .credits-gauge-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .gauge-wrapper {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+    
+    .gauge-svg {
+      transform: rotate(-90deg);
+      width: 100%;
+      height: 100%;
+    }
+    
+    .gauge-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.03);
+      stroke-width: 16;
+    }
+    
+    .gauge-fill {
+      fill: none;
+      stroke-width: 16;
+      stroke-linecap: round;
+      stroke-dasharray: 565;
+      stroke-dashoffset: 565;
+      transition: stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .fill-mca {
+      stroke: url(#mcaGrad);
+      filter: drop-shadow(0 0 6px hsla(262, 80%, 55%, 0.5));
+    }
+    
+    .fill-msc {
+      stroke: url(#mscGrad);
+      filter: drop-shadow(0 0 6px hsla(162, 85%, 42%, 0.5));
+    }
+    
+    .gauge-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    
+    .gauge-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+    }
+    
+    .gauge-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    /* Horizontal Stacked Credit bar visualizer */
+    .bar-chart-container {
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+    
+    .bar-label-grid {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+    }
+    
+    .bar-track {
+      height: 24px;
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    
+    .bar-segment {
+      height: 100%;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    
+    .bar-segment:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: hsl(220, 30%, 10%);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      z-index: 10;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .bar-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+    
+    /* NEP alert badge */
+    .nep-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      background: rgba(251, 191, 36, 0.08);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      margin-top: 1rem;
+    }
+    
+    /* Curriculum Explorer Styling */
+    .curriculum-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .semester-selector {
+      display: flex;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.25rem;
+    }
+    
+    .sem-btn {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition-base);
+    }
+    
+    .sem-btn.active {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+    }
+    
+    /* Search Box */
+    .search-container {
+      position: relative;
+      flex-grow: 1;
+      max-width: 400px;
+    }
+    
+    .search-input {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      color: #fff;
+      font-size: 0.9rem;
+      transition: var(--transition-base);
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      pointer-events: none;
+      font-size: 0.95rem;
+    }
+    
+    /* Syllabus side by side layout */
+    .syllabus-comparison {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    
+    @media (max-width: 900px) {
+      .syllabus-comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .syllabus-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .column-header-box {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .column-mca { border-color: var(--color-mca); }
+    .column-msc { border-color: var(--color-msc); }
+    
+    .subject-card {
+      background: rgba(30, 41, 59, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      padding: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition-elastic);
+      position: relative;
+    }
+    
+    .subject-card:hover {
+      transform: scale(1.02);
+      background: rgba(30, 41, 59, 0.5);
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    
+    .subject-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    
+    .subject-details {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: none;
+      margin-top: 0.8rem;
+      padding-top: 0.8rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.06);
+      animation: slideDown 0.3s ease-out forwards;
+    }
+    
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .subject-card.expanded .subject-details {
+      display: block;
+    }
+    
+    .credit-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    
+    .tag-mca { background: rgba(139, 92, 246, 0.15); color: hsl(262, 90%, 80%); }
+    .tag-msc { background: rgba(16, 185, 129, 0.15); color: hsl(162, 90%, 75%); }
+    .tag-elective { background: rgba(251, 191, 36, 0.15); color: hsl(45, 100%, 70%); }
+    
+    .expand-indicator {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      transition: var(--transition-base);
+    }
+    
+    .subject-card.expanded .expand-indicator {
+      transform: rotate(180deg);
+      color: #fff;
+    }
+    
+    /* Profits / Deprofits Grid */
+    .pro-con-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+    
+    @media (max-width: 900px) {
+      .pro-con-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .pro-con-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .pro-con-header {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .pro-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .pro-item {
+      background: rgba(30, 41, 59, 0.25);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: var(--transition-base);
+    }
+    
+    .pro-item:hover {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(30, 41, 59, 0.35);
+    }
+    
+    .icon-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50px;
+      flex-shrink: 0;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+    
+    .icon-plus { background: rgba(16, 185, 129, 0.15); color: var(--color-msc); }
+    .icon-minus { background: rgba(239, 68, 68, 0.15); color: hsl(0, 85%, 65%); }
+    
+    .pro-text h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+    
+    .pro-text p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    
+    /* Interactive Fit Quiz */
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .quiz-progress-bar {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    
+    .quiz-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-mca), var(--color-msc));
+      width: 20%;
+      transition: width 0.4s ease;
+    }
+    
+    .question-card {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    
+    .question-card.active {
+      display: block;
+    }
+    
+    .quiz-question {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .option-btn {
+      background: rgba(30, 41, 59, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: left;
+      color: var(--text-main);
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: var(--transition-base);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .option-btn:hover {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .option-marker {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      display: inline-block;
+    }
+    
+    .option-btn:hover .option-marker {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Quiz Result Page */
+    .quiz-result {
+      display: none;
+      text-align: center;
+      animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    .result-scores {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin: 2rem 0;
+    }
+    
+    .result-score-ring {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .ring-mca {
+      border: 4px solid var(--color-mca);
+      box-shadow: 0 0 20px var(--color-mca-glow);
+    }
+    
+    .ring-msc {
+      border: 4px solid var(--color-msc);
+      box-shadow: 0 0 20px var(--color-msc-glow);
+    }
+    
+    .ring-percent {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    
+    .ring-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .recommendation-banner {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .recommendation-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    
+    .rec-mca { color: hsl(262, 90%, 75%); }
+    .rec-msc { color: hsl(162, 90%, 70%); }
+    
+    .quiz-restart-btn {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition-base);
+    }
+    
+    .quiz-restart-btn:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.02);
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  
+  <header>
+    <div class="university-tag">Rashtrasant Tukadoji Maharaj Nagpur University</div>
+    <h1 id="main-title">MCA vs M.Sc. Computer Science</h1>
+    <div class="subtitle">An interactive comparative data model to evaluate RTMNU’s dual post-graduate pathways in computing</div>
+  </header>
+  
+  <main class="container">
+    
+    <!-- Tab Controls -->
+    <div class="tabs-wrapper">
+      <nav class="tabs" role="tablist" aria-label="Course Comparison Options">
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-overview" onclick="switchTab(event, 'panel-overview')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
+          Overview & Metrics
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-curriculum" onclick="switchTab(event, 'panel-curriculum')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20M4 19.5V5A2.5 2.5 0 0 1 6.5 2.5H20v14H6.5"/></svg>
+          Curriculum Explorer
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-benefits" onclick="switchTab(event, 'panel-benefits')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          Profits & Deprofits
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-quiz" onclick="switchTab(event, 'panel-quiz')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+          Interactive Fit Quiz
+        </button>
+      </nav>
+    </div>
+    
+    <!-- PANEL 1: Overview & Metrics -->
+    <section id="panel-overview" class="panel active" role="tabpanel" aria-labelledby="tab-overview">
+      <div class="overview-grid">
+        
+        <!-- MCA Card -->
+        <article class="glass-card">
+          <div class="course-header">
+            <span class="course-badge badge-mca">MCA</span>
+            <span style="color: var(--text-dim); font-size: 0.8rem; font-weight: 600;">PROFESSIONAL PATHWAY</span>
+          </div>
+          
+          <div class="meta-metrics">
+            <div class="metric-box">
+              <div class="metric-value">2 Years</div>
+              <div class="metric-label">Duration</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value" style="color: var(--color-mca);">120</div>
+              <div class="metric-label">Total Credits</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value">3000</div>
+              <div class="metric-label">Total Marks</div>
+            </div>
+          </div>
+          
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+            Approved by **AICTE**, the Master of Computer Applications is a high-intensity, professional application development degree. Designed specifically for corporate software development, web/app engineering, and enterprise database systems.
+          </p>
+          
+          <div class="chart-container">
+            <div class="credits-gauge-title">Credit Load Ratio</div>
+            <div class="gauge-wrapper">
+              <svg class="gauge-svg">
+                <circle class="gauge-bg" cx="100" cy="100" r="90" />
+                <circle class="gauge-fill fill-mca" cx="100" cy="100" r="90" id="mca-gauge" />
+                <defs>
+                  <linearGradient id="mcaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="hsl(262, 85%, 60%)" />
+                    <stop offset="100%" stop-color="hsl(282, 75%, 45%)" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="gauge-text">
+                <span class="gauge-num" style="color: #fff;">120</span>
+                <div class="gauge-sub">Credits</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bar-chart-container">
+            <div class="bar-label-grid">
+              <span>Theory (60)</span>
+              <span>Practical (24)</span>
+              <span>Projects (36)</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-segment" style="width: 50%; background: hsl(262, 80%, 55%);" data-tooltip="Core & Elective Theory: 60 Credits" id="mca-bar-theory"></div>
+              <div class="bar-segment" style="width: 20%; background: hsl(262, 60%, 45%);" data-tooltip="Practicals & Labs: 24 Credits" id="mca-bar-practical"></div>
+              <div class="bar-segment" style="width: 30%; background: hsl(282, 75%, 45%);" data-tooltip="Projects & Seminars: 36 Credits" id="mca-bar-projects"></div>
+            </div>
+          </div>
+        </article>
+        
+        <!-- M.Sc. CS Card -->
+        <article class="glass-card">
+          <div class="course-header">
+            <span class="course-badge badge-msc">M.Sc. CS</span>
+            <span style="color: var(--text-dim); font-size: 0.8rem; font-weight: 600;">RESEARCH & ADVANCED TECH</span>
+          </div>
+          
+          <div class="meta-metrics">
+            <div class="metric-box">
+              <div class="metric-value">2 Years</div>
+              <div class="metric-label">Duration</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value" style="color: var(--color-msc);">88</div>
+              <div class="metric-label">Total Credits</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value">2400</div>
+              <div class="metric-label">Total Marks</div>
+            </div>
+          </div>
+          
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+            Restructured in **2023 under NEP-2020**, M.Sc. Computer Science focuses on scientific research, algorithm development, and deep tech topics like Machine Learning, Deep Learning, and Computer Vision.
+          </p>
+          
+          <div class="chart-container">
+            <div class="credits-gauge-title">Credit Load Ratio</div>
+            <div class="gauge-wrapper">
+              <svg class="gauge-svg">
+                <circle class="gauge-bg" cx="100" cy="100" r="90" />
+                <circle class="gauge-fill fill-msc" cx="100" cy="100" r="90" id="msc-gauge" />
+                <defs>
+                  <linearGradient id="mscGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="hsl(162, 85%, 45%)" />
+                    <stop offset="100%" stop-color="hsl(178, 80%, 35%)" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="gauge-text">
+                <span class="gauge-num" style="color: #fff;">88</span>
+                <div class="gauge-sub">Credits</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bar-chart-container">
+            <div class="bar-label-grid">
+              <span>Theory (60)</span>
+              <span>Practical (14)</span>
+              <span>Research (14)</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-segment" style="width: 68%; background: hsl(162, 85%, 42%);" data-tooltip="Core & Elective Theory: 60 Credits" id="msc-bar-theory"></div>
+              <div class="bar-segment" style="width: 16%; background: hsl(162, 60%, 35%);" data-tooltip="Practicals & Labs: 14 Credits" id="msc-bar-practical"></div>
+              <div class="bar-segment" style="width: 16%; background: hsl(178, 80%, 35%);" data-tooltip="Dissertations & Apprenticeship: 14 Credits" id="msc-bar-projects"></div>
+            </div>
+            <div class="nep-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              NEP-2020: Exit option (Diploma) after Year 1
+            </div>
+          </div>
+        </article>
+        
+      </div>
+      
+      <div class="bar-legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background: hsl(262, 80%, 55%);"></div>
+          <span>Theory Core</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: hsl(162, 85%, 42%);"></div>
+          <span>Deep Theory & Research</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: hsl(262, 60%, 45%);"></div>
+          <span>Coding Labs</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: hsl(282, 75%, 45%);"></div>
+          <span>Industrial Placements</span>
+        </div>
+      </div>
+    </section>
+    
+    <!-- PANEL 2: Curriculum Explorer -->
+    <section id="panel-curriculum" class="panel" role="tabpanel" aria-labelledby="tab-curriculum">
+      <div class="curriculum-controls">
+        <div class="semester-selector">
+          <button class="sem-btn active" onclick="switchSemester(1)">Sem I</button>
+          <button class="sem-btn" onclick="switchSemester(2)">Sem II</button>
+          <button class="sem-btn" onclick="switchSemester(3)">Sem III</button>
+          <button class="sem-btn" onclick="switchSemester(4)">Sem IV</button>
+        </div>
+        <div class="search-container">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" placeholder="Search courses or keywords..." id="syllabus-search" oninput="searchSyllabus()">
+        </div>
+      </div>
+      
+      <div class="syllabus-comparison">
+        
+        <!-- MCA Column -->
+        <div class="syllabus-column">
+          <h3 class="column-header-box column-mca">
+            <span>MCA Core Courses</span>
+            <span style="font-size: 0.8rem; font-weight: 500; opacity: 0.7;" id="mca-sem-credits">Semester I: 28 Credits</span>
+          </h3>
+          <div id="mca-syllabus-list" class="column-list">
+            <!-- Dynamic Injection -->
+          </div>
+        </div>
+        
+        <!-- M.Sc. CS Column -->
+        <div class="syllabus-column">
+          <h3 class="column-header-box column-msc">
+            <span>M.Sc. CS Core Courses</span>
+            <span style="font-size: 0.8rem; font-weight: 500; opacity: 0.7;" id="msc-sem-credits">Semester I: 22 Credits</span>
+          </h3>
+          <div id="msc-syllabus-list" class="column-list">
+            <!-- Dynamic Injection -->
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    
+    <!-- PANEL 3: Profits & Deprofits -->
+    <section id="panel-benefits" class="panel" role="tabpanel" aria-labelledby="tab-benefits">
+      <div class="pro-con-grid">
+        
+        <!-- MCA Section -->
+        <div class="pro-con-section">
+          <h3 class="pro-con-header" style="color: var(--color-mca);">
+            <span class="course-badge badge-mca" style="font-size: 1.1rem; padding: 0.2rem 0.8rem;">MCA</span>
+            Profits & Deprofits
+          </h3>
+          
+          <div class="pro-list">
+            <div class="pro-item">
+              <div class="icon-box icon-plus">+</div>
+              <div class="pro-text">
+                <h4>AICTE Professional Status</h4>
+                <p>Equated directly with standard corporate engineering guidelines. Mass recruiters like TCS, Wipro, and Wipro prioritize MCA on par with B.Tech grids.</p>
+              </div>
+            </div>
+            
+            <div class="pro-item">
+              <div class="icon-box icon-plus">+</div>
+              <div class="pro-text">
+                <h4>6-Month Industrial Internship</h4>
+                <p>Semester IV is strictly reserved for a massive 24-credit corporate placement. Very high likelihood of converting internships into full-time roles (PPOs).</p>
+              </div>
+            </div>
+            
+            <div class="pro-item">
+              <div class="icon-box icon-plus">+</div>
+              <div class="pro-text">
+                <h4>Strong Enterprise Stack Coding</h4>
+                <p>Direct hands-on core labs in Android, ASP.NET, PHP, and Java, providing high readiness for immediate corporate product development.</p>
+              </div>
+            </div>
+            
+            <div class="pro-item">
+              <div class="icon-box icon-minus">-</div>
+              <div class="pro-text">
+                <h4>Severe Entrance Exam Barrier</h4>
+                <p>State-wide MAH-MCA-CET entrance creates a competitive bottleneck. Non-qualifiers cannot access RTMNU’s top affiliated colleges.</p>
+              </div>
+            </div>
+            
+            <div class="pro-item">
+              <div class="icon-box icon-minus">-</div>
+              <div class="pro-text">
+                <h4>Heavy 120-Credit Workload</h4>
+                <p>Extremely demanding syllabus structure with continuous internal evaluations and strict coding assignments, leaving limited room for self-directed study.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- M.Sc. CS Section -->
+        <div class="pro-con-section">
+          <h3 class="pro-con-header" style="color: var(--color-msc);">
+            <span class="course-badge badge-msc" style="font-size: 1.1rem; padding: 0.2rem 0.8rem;">M.Sc. CS</span>
+            Profits & Deprofits
+          </h3>
+          
+          <div class="pro-list">
+            <div class="pro-item">
+              <div class="icon-box icon-plus">+</div>
+              <div class="pro-text">
+                <h4>NEP-2020 Credit Flexibility</h4>
+                <p>Features a 1-year exit exit-diploma (40 credits) or direct lateral entry pathways. Standardized with state-of-the-art national education structures.</p>
+              </div>
+            </div>
+            
+            <div class="pro-item">
+              <div class="icon-box icon-plus">+</div>
+              <div class="pro-text">
+                <h4>Embedded Scientific Research</h4>
+                <p>Dedicated modules in Research Methodology and 14 total dissertation credits across semesters III & IV. Serves as a perfect runway for PhD and Net/Set exams.</p>
+              </div>
+            </div>
+            
+            <div class="pro-item">
+              <div class="icon-box icon-plus">+</div>
+              <div class="pro-text">
+                <h4>Advanced math-focused AI & ML</h4>
+                <p>Deeper dive into foundational mathematical models of computing, featuring dedicated classes in Deep Learning, Compiler Construction, and Computer Vision.</p>
+              </div>
+            </div>
+            
+            <div class="pro-item">
+              <div class="icon-box icon-minus">-</div>
+              <div class="pro-text">
+                <h4>Lack of Applied Frameworks</h4>
+                <p>Does not teach general mobile app platforms (Android/iOS) or enterprise web developer toolkits (.NET/PHP) within core subjects.</p>
+              </div>
+            </div>
+            
+            <div class="pro-item">
+              <div class="icon-box icon-minus">-</div>
+              <div class="pro-text">
+                <h4>Corporate Eligibility Gatekeeping</h4>
+                <p>Conservative software development firms sometimes filter applicants strictly for B.Tech or MCA degrees, occasionally excluding M.Sc. graduates from entry-level HR lists.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    
+    <!-- PANEL 4: Fit Quiz -->
+    <section id="panel-quiz" class="panel" role="tabpanel" aria-labelledby="tab-quiz">
+      <div class="glass-card quiz-container">
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quiz-progress"></div>
+        </div>
+        
+        <!-- Dynamic Questions -->
+        <div id="quiz-question-container">
+          <!-- Injected dynamically -->
+        </div>
+        
+        <!-- Results page -->
+        <div id="quiz-result" class="quiz-result">
+          <h3 class="recommendation-title" id="recommendation-badge">Recommended for You: MCA</h3>
+          <div class="recommendation-banner" id="recommendation-desc">
+            <!-- Text injected -->
+          </div>
+          
+          <div class="result-scores">
+            <div class="result-score-ring ring-mca">
+              <span class="ring-percent" id="mca-percentage">70%</span>
+              <span class="ring-label">MCA Fit</span>
+            </div>
+            <div class="result-score-ring ring-msc">
+              <span class="ring-percent" id="msc-percentage">30%</span>
+              <span class="ring-label">M.Sc. CS Fit</span>
+            </div>
+          </div>
+          
+          <button class="quiz-restart-btn" onclick="restartQuiz()">Restart Analysis Quiz</button>
+        </div>
+      </div>
+    </section>
+    
+  </main>
+  
+  <footer>
+    <p>&copy; 2026 RTMNU Course Analytical System. Designed for educational decision benchmarking.</p>
+  </footer>
+  
+  <script>
+    // Tab Controller
+    function switchTab(e, panelId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelectorAll('.panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      
+      e.currentTarget.classList.add('active');
+      const targetPanel = document.getElementById(panelId);
+      targetPanel.classList.add('active');
+      
+      if (panelId === 'panel-overview') {
+        animateGauges();
+      }
+    }
+    
+    // Animate Gauges on load/show
+    function animateGauges() {
+      // MCA credit: 120/120 => 565 dash offset is 0
+      // M.Sc credit: 88/120 => dash offset is 565 * (1 - 88/120) = 150.6
+      setTimeout(() => {
+        document.getElementById('mca-gauge').style.strokeDashoffset = '0';
+        document.getElementById('msc-gauge').style.strokeDashoffset = '150';
+      }, 100);
+    }
+    
+    // Core Syllabus Database
+    const syllabusDb = {
+      1: {
+        mca: {
+          credits: 28,
+          courses: [
+            { code: "1T1", title: "Advanced Java Programming", credits: 4, type: "Core", details: "Java Multithreading, Thread Synchronization, JDBC architecture, SQL Package, Applet Lifecycle, Servlets, Tomcat configuration, JSP tags, JavaBeans and BDK." },
+            { code: "1T2", title: "Data Communication & Network", credits: 4, type: "Core", details: "OSI reference model, theoretical basis for communication, sliding window protocols, routing algorithms, transport layer issues, encryption standard, public-key system, RSA, Diffie-Hellman." },
+            { code: "1T3", title: "Open Source Web Programming using PHP", credits: 4, type: "Core", details: "History and basics, functions, arrays, Classes and Objects, HTTP basics, cookies, sessions, graphics and GD extensions, PDF extensions, XML parsing, web services, security." },
+            { code: "1T4", title: "Advanced DBMS and Administration", credits: 4, type: "Core", details: "Functional dependencies, normal forms (1NF-5NF), query optimization processing costs, transactions, concurrency locking, Oracle architecture, tablespaces, tuning, physical backup." },
+            { code: "1T5", title: "Software Engineering", credits: 4, type: "Core", details: "layered technology, generic view of process, Waterfall, Incremental, Unified models, UML modeling, OOD object classes, testing strategies, quality metrics, CMMI." },
+            { code: "1P1", title: "Practical 1 (Java, PHP, Networks)", credits: 4, type: "Lab", details: "Hands-on application development in Java and PHP, and setup of socket programming protocols." },
+            { code: "1P2", title: "Practical 2 (DBMS & SE)", credits: 4, type: "Lab", details: "Database creation, SQL optimization, and Software prototyping with UML modeling tools." }
+          ]
+        },
+        msc: {
+          credits: 22,
+          courses: [
+            { code: "MCS1T01", title: "Artificial Intelligence", credits: 4, type: "Core", details: "State space search, tic-tac-toe, production system, heuristics, A*/AO* algorithm, knowledge representation predicate logic, logic programming, resolution, NLP, expert systems." },
+            { code: "MCS1T02", title: "Compiler Construction", credits: 4, type: "Core", details: "Language Processors, structure of a compiler, lexical analysis, syntax directed translation, parser generators (Lex), recursive-descent parsing, bottom-up shift-reduce parsing, code generation, DAG, optimization." },
+            { code: "MCS1T03", title: "Elective 1 (Computer Architecture)", credits: 4, type: "Elective", details: "CPU and memory layers, RISC v/s CISC, memory array interleaving, cache, Input/Output interface, DMA, pipeline, vector processing." },
+            { code: "MCS1T04", title: "Research Methodology", credits: 4, type: "Core", details: "Research objectives and design, quantitative/qualitative analysis, data collections, Python tools for CSV/Zipping/Web scraping, LaTeX scientific reports." },
+            { code: "MCS1P01", title: "Practical 1 (AI & Compiler)", credits: 3, type: "Lab", details: "Hands-on AI search logic, and compiler syntax parser implementation." },
+            { code: "MCS1P02", title: "Practical 2 (Elective & RM)", credits: 3, type: "Lab", details: "Experiments in Discrete Maths/Architecture and data analysis using Python scraping/LaTeX." }
+          ]
+        }
+      },
+      2: {
+        mca: {
+          credits: 32,
+          courses: [
+            { code: "2T1", title: "C# and ASP.NET", credits: 4, type: "Core", details: "Common Language Runtime (CLR), Common Type System, Structs, Enums, File and Folder operations, web form fundamentals, rich validation controls, components state management, caching." },
+            { code: "2T2", title: "Cloud Computing", credits: 4, type: "Core", details: "Virtualization levels, CPU, memory and I/O devices, Open Cloud Consortium, OpenStack, Google App Engine programming, AWS/Azure, Identity and Access Management (IAM)." },
+            { code: "2T3", title: "Computer Graphics", credits: 4, type: "Core", details: "Display systems, DDA & Bresenham algorithms, boundary fill, basic composite transformations, 3D projection viewing, Bezier curves, Z-buffer, fractals, illumination models." },
+            { code: "2T4", title: "Android Programming", credits: 4, type: "Core", details: "Architecture, Manifest, Activities & Fragments lifecycle, LinearLayout, layouts, SQLite database, content providers, networking, socket programming, email." },
+            { code: "2T5", title: "Elective 1 (Cyber Forensics)", credits: 4, type: "Elective", details: "Vulnerability scanning, Nmap, Wireshark, firewalls packet filters, Snort, Cyber Crimes and law, Indian IT Act 2000, Sleuth Kit registry analysis." },
+            { code: "2P1", title: "Practical 1 (C#, ASP.NET, Graphics)", credits: 4, type: "Lab", details: "Writing C# classes, building ASP.NET portals, and coding 2D graphics transformations." },
+            { code: "2P2", title: "Practical 2 (Elective & Android)", credits: 4, type: "Lab", details: "Developing full android mobile applications, and network vulnerability scanning simulations." },
+            { code: "Project", title: "Mini Project", credits: 4, type: "Project", details: "Analysis, design, and implementation of a small-scale system in a chosen tech stack." }
+          ]
+        },
+        msc: {
+          credits: 22,
+          courses: [
+            { code: "MCS2T05", title: "Cloud Computing", credits: 4, type: "Core", details: "Virtualization levels, broadband networks, Open Cloud Consortium, OpenStack ecosystem, Docker workflow, IAM, Single Sign-On, QoS." },
+            { code: "MCS2T06", title: "Machine Learning", credits: 4, type: "Core", details: "Supervised learning, Perceptron, multi-layer perceptron, backpropagation error, RBF network, Decision trees, SVM, dimensionality reduction PCA/LDA, graphical models." },
+            { code: "MCS2T07", title: "Elective 2 (Neural Network)", credits: 4, type: "Elective", details: "Feedforward architecture, LMS algorithm, supervised learning, Backpropagation, statistical pattern recognition, support vector machines, RRBFNs." },
+            { code: "MOJ2P01", title: "Apprenticeship/Mini Project", credits: 4, type: "Project", details: "Industry apprenticeship or mini project related to core subjects (Cloud/ML)." },
+            { code: "MCS1P03", title: "Practical 3 (Cloud & ML)", credits: 3, type: "Lab", details: "Implementation of ML models and setting up basic cloud VM infrastructures." },
+            { code: "MCS1P04", title: "Practical 4 (Elective 2)", credits: 3, type: "Lab", details: "Experiments in R programming or setting up and training artificial neural networks." }
+          ]
+        }
+      },
+      3: {
+        mca: {
+          credits: 28,
+          courses: [
+            { code: "3T1", title: "Big Data Analytics", credits: 4, type: "Core", details: "Distributed computing in Big Data, Hadoop Ecosystem, HDFS architecture, HBase, MapReduce, Hive/Pig, R programming, data manipulation matrices/frames, data visualization." },
+            { code: "3T2", title: "Data Mining", credits: 4, type: "Core", details: "Preprocessing dimensionality reduction, summary statistics, Decision trees, Rule-Based Classifier, Apriori association algorithm, Clustering K-means, outlier anomaly detection." },
+            { code: "3T3", title: "Python Programming", credits: 4, type: "Core", details: "Syntax, objects and dictionaries, functions scope, modules, file I/O operations, network server creation, multimedia graphic modules, CGI web development." },
+            { code: "3T4", title: "Elective 2 (Machine Learning)", credits: 4, type: "Elective", details: "Learning types, Version spaces, multi-layer perceptron, Support Vector Machine, decision trees, PCA/LDA dimension reduction, reinforcement learning, graphical models." },
+            { code: "3T5", title: "Soft Computing", credits: 4, type: "Core", details: "Heuristics search A*, Neural networks, Perceptron delta rule, EBPA, unsupervised learning SOM, SVM algorithms, fuzzy sets logic modeling." },
+            { code: "3P1", title: "Practical 1 (R, Data Mining, Python)", credits: 4, type: "Lab", details: "Data analysis in R/Python, decision tree induction, and frequent itemset generation." },
+            { code: "3P2", title: "Practical 2 (Elective & Soft Computing)", credits: 4, type: "Lab", details: "Training custom Neural Networks, implementing fuzzy logic rules, and training SVM models." }
+          ]
+        },
+        msc: {
+          credits: 22,
+          courses: [
+            { code: "MCS3T08", title: "Advanced Software Engineering", credits: 4, type: "Core", details: "Waterfall, Incremental, Unified, Agile/Scrum processes, system context behavioral models, UML, testing strategies, COCOMO model, configuration management, re-engineering." },
+            { code: "MCS3T09", title: "Network Security", credits: 4, type: "Core", details: "Symmetric key cryptography (DES, AES), Public key cryptography (RSA), hash functions, PKI digital certificates, SSL/TLS, firewalls, IoT security." },
+            { code: "MCS3T10", title: "Digital Image Processing", credits: 4, type: "Core", details: "Image sampling, quantization, RGB/HSI models, DFT/DCT, enhancement, smoothing frequency domain, restoration Wiener filter, Hough edge detection, watersheds." },
+            { code: "MCS3T11", title: "Elective 3 (Internet of Things)", credits: 4, type: "Elective", details: "Four/Seven layer architectures, sensors/actuators, MQTT, CoAP, HTTP protocols, cloud analytics for IoT, Arduino programming, smart cities case studies." },
+            { code: "MRP3P01", title: "Research Project / Dissertation I", credits: 4, type: "Project", details: "Topic selection, comprehensive literature review, project formulation, and research design scoping." },
+            { code: "MCS1P05", title: "Practical 5 (Advanced SE, DIP & Sec)", credits: 2, type: "Lab", details: "Combined practicals covering Software engineering artifacts, cryptographic algorithms, and Image enhancement modules." }
+          ]
+        }
+      },
+      4: {
+        mca: {
+          credits: 32,
+          courses: [
+            { code: "Project", title: "Full-Time Industrial Project", credits: 24, type: "Project", details: "A full semester (6 months) in-depth industrial internship and project development inside a corporate IT firm." },
+            { code: "Seminar", title: "Technical Seminar & Presentation", credits: 8, type: "Core", details: "Literature review and public presentation on advanced computing technologies before external university panels." }
+          ]
+        },
+        msc: {
+          credits: 22,
+          courses: [
+            { code: "MCS4T12", title: "Big Data Analytics", credits: 4, type: "Core", details: "Data Sets & analytics diagnostic/predictive, Big Data BI, Clusters, NoSQL Databases, in-memory systems, MapReduce, Spark." },
+            { code: "MCS4T13", title: "Computer Vision", credits: 4, type: "Core", details: "Edge detection, spatial operators, Connected component labeling, hough transform, spatial moments, facet model, image matching." },
+            { code: "MCS4T14", title: "Deep Learning", credits: 4, type: "Core", details: "Feedforward NN, Backpropagation, autoencoders undercomplete/sparse, CNNs (ResNet, GoogLeNet), RNNs, LSTMs, Attention mechanism." },
+            { code: "MCS4T15", title: "Elective 4 (Design & Analysis of Alg)", credits: 4, type: "Elective", details: "Time/Space complexity, Divide and Conquer, Greedy, Dynamic Programming, Branch & Bound, Traveling Salesman, BFS/DFS, Strongly Connected Components." },
+            { code: "MRP4P02", title: "Research Project / Dissertation II", credits: 6, type: "Project", details: "Execution of the research plan, data collection, paper publication writing, dissertation thesis defense." }
+          ]
+        }
+      }
+    };
+    
+    // Semester Switcher
+    let activeSemester = 1;
+    
+    function switchSemester(semNo) {
+      activeSemester = semNo;
+      document.querySelectorAll('.sem-btn').forEach((btn, idx) => {
+        btn.classList.remove('active');
+        if (idx + 1 === semNo) {
+          btn.classList.add('active');
+        }
+      });
+      
+      renderSyllabus();
+    }
+    
+    function romans(no) {
+      const map = { 1: "I", 2: "II", 3: "III", 4: "IV" };
+      return map[no];
+    }
+    
+    function renderSyllabus(filterText = '') {
+      const mcaContainer = document.getElementById('mca-syllabus-list');
+      const mscContainer = document.getElementById('msc-syllabus-list');
+      
+      const mcaSem = syllabusDb[activeSemester].mca;
+      const mscSem = syllabusDb[activeSemester].msc;
+      
+      document.getElementById('mca-sem-credits').innerText = `Semester ${romans(activeSemester)}: ${mcaSem.credits} Credits`;
+      document.getElementById('msc-sem-credits').innerText = `Semester ${romans(activeSemester)}: ${mscSem.credits} Credits`;
+      
+      mcaContainer.innerHTML = '';
+      mscContainer.innerHTML = '';
+      
+      const filter = filterText.toLowerCase();
+      
+      // Render MCA
+      const mcaFiltered = mcaSem.courses.filter(c => 
+        c.title.toLowerCase().includes(filter) || 
+        c.details.toLowerCase().includes(filter) ||
+        c.code.toLowerCase().includes(filter)
+      );
+      
+      if (mcaFiltered.length === 0) {
+        mcaContainer.innerHTML = `<div style="color: var(--text-dim); text-align: center; padding: 2rem;">No courses match your search</div>`;
+      } else {
+        mcaFiltered.forEach(course => {
+          mcaContainer.innerHTML += createCourseHtml(course, 'mca');
+        });
+      }
+      
+      // Render M.Sc. CS
+      const mscFiltered = mscSem.courses.filter(c => 
+        c.title.toLowerCase().includes(filter) || 
+        c.details.toLowerCase().includes(filter) ||
+        c.code.toLowerCase().includes(filter)
+      );
+      
+      if (mscFiltered.length === 0) {
+        mscContainer.innerHTML = `<div style="color: var(--text-dim); text-align: center; padding: 2rem;">No courses match your search</div>`;
+      } else {
+        mscFiltered.forEach(course => {
+          mscContainer.innerHTML += createCourseHtml(course, 'msc');
+        });
+      }
+    }
+    
+    function createCourseHtml(c, type) {
+      const tagClass = c.type === 'Elective' ? 'tag-elective' : (type === 'mca' ? 'tag-mca' : 'tag-msc');
+      return `
+        <div class="subject-card" onclick="toggleDetails(this)">
+          <div class="subject-title">
+            <span style="font-weight: 600;">${c.title}</span>
+            <span class="expand-indicator">▼</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.3rem; align-items: center;">
+            <span style="font-size: 0.75rem; color: var(--text-dim); font-family: monospace;">${c.code}</span>
+            <span class="credit-tag ${tagClass}">${c.credits} Credits • ${c.type}</span>
+          </div>
+          <div class="subject-details">
+            <p style="font-weight: 600; color: #fff; margin-bottom: 0.3rem;">Syllabus Focus:</p>
+            <p>${c.details}</p>
+          </div>
+        </div>
+      `;
+    }
+    
+    function toggleDetails(element) {
+      element.classList.toggle('expanded');
+    }
+    
+    // Fuzzy Syllabus search
+    function searchSyllabus() {
+      const text = document.getElementById('syllabus-search').value;
+      renderSyllabus(text);
+    }
+    
+    // FIT QUIZ ENGINE
+    const quizData = [
+      {
+        question: "What is your primary long-term career ambition?",
+        options: [
+          { text: "Become a professional software engineer, full-stack developer, or IT architect at a tech firm.", mca: 15, msc: 3 },
+          { text: "Become an AI/ML specialist, R&D scientist, university lecturer, or researcher.", mca: 3, msc: 15 }
+        ]
+      },
+      {
+        question: "How do you feel about rigorous computational mathematics and algorithmic theory?",
+        options: [
+          { text: "I prefer practical coding, building applications, and learning concrete APIs.", mca: 15, msc: 4 },
+          { text: "I love understanding the deep mathematical models, theoretical proofs, and logic behind algorithms.", mca: 2, msc: 15 }
+        ]
+      },
+      {
+        question: "How would you prefer to spend your final semester?",
+        options: [
+          { text: "A 6-month, full-time corporate software developer internship at an IT company.", mca: 15, msc: 3 },
+          { text: "Writing a scientific thesis, dissertation, and submitting research papers.", mca: 1, msc: 15 }
+        ]
+      },
+      {
+        question: "What is your current undergraduate academic background?",
+        options: [
+          { text: "BCA, B.Sc. IT, or B.Sc. Computer Science (direct eligibility for both).", mca: 10, msc: 10 },
+          { text: "Non-CS background (B.Com, B.A, general B.Sc) with 12th math (MCA is highly accommodating via bridge courses).", mca: 15, msc: 2 }
+        ]
+      },
+      {
+        question: "Are you willing to prepare for a state-level entrance exam (MAH-MCA-CET) for admission?",
+        options: [
+          { text: "Yes, I am prepared to crack a competitive CET to secure a seat in a top engineering college.", mca: 15, msc: 5 },
+          { text: "No, I prefer direct merit-based admission without undergoing a highly competitive CET.", mca: 2, msc: 15 }
+        ]
+      }
+    ];
+    
+    let currentQuizStep = 0;
+    let quizScores = { mca: 0, msc: 0 };
+    
+    function startQuiz() {
+      currentQuizStep = 0;
+      quizScores = { mca: 0, msc: 0 };
+      document.getElementById('quiz-result').style.display = 'none';
+      renderQuizQuestion();
+    }
+    
+    function renderQuizQuestion() {
+      const progress = ((currentQuizStep) / quizData.length) * 100;
+      document.getElementById('quiz-progress').style.width = `${progress}%`;
+      
+      const qContainer = document.getElementById('quiz-question-container');
+      qContainer.innerHTML = '';
+      
+      if (currentQuizStep >= quizData.length) {
+        showQuizResults();
+        return;
+      }
+      
+      const q = quizData[currentQuizStep];
+      
+      const card = document.createElement('div');
+      card.className = 'question-card active';
+      
+      const qTitle = document.createElement('h3');
+      qTitle.className = 'quiz-question';
+      qTitle.innerText = `${currentQuizStep + 1}. ${q.question}`;
+      card.appendChild(qTitle);
+      
+      const optionsDiv = document.createElement('div');
+      optionsDiv.className = 'options-list';
+      
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span>${opt.text}</span><span class="option-marker"></span>`;
+        btn.onclick = () => selectOption(opt.mca, opt.msc);
+        optionsDiv.appendChild(btn);
+      });
+      
+      card.appendChild(optionsDiv);
+      qContainer.appendChild(card);
+    }
+    
+    function selectOption(mcaPoints, mscPoints) {
+      quizScores.mca += mcaPoints;
+      quizScores.msc += mscPoints;
+      currentQuizStep++;
+      renderQuizQuestion();
+    }
+    
+    function showQuizResults() {
+      document.getElementById('quiz-question-container').innerHTML = '';
+      document.getElementById('quiz-progress').style.width = '100%';
+      
+      const total = quizScores.mca + quizScores.msc;
+      const mcaPct = Math.round((quizScores.mca / total) * 100);
+      const mscPct = Math.round((quizScores.msc / total) * 100);
+      
+      document.getElementById('mca-percentage').innerText = `${mcaPct}%`;
+      document.getElementById('msc-percentage').innerText = `${mscPct}%`;
+      
+      const badge = document.getElementById('recommendation-badge');
+      const desc = document.getElementById('recommendation-desc');
+      
+      if (mcaPct > mscPct) {
+        badge.innerText = "Recommended Pathway: MCA (Master of Computer Applications)";
+        badge.className = "recommendation-title rec-mca";
+        desc.innerHTML = `
+          <p style="font-weight: 500; font-size: 1.1rem; margin-bottom: 0.8rem;">You have strong alignment with the <strong>Professional Corporate Software Developer</strong> track.</p>
+          <p style="font-size: 0.9rem; color: var(--text-muted); text-align: left;">
+            <strong>Next Steps:</strong><br>
+            1. Begin preparing for the <strong>MAH-MCA-CET</strong> examination. Master basics of mathematics, logical reasoning, and C programming basics.<br>
+            2. Aim for top-tier RTMNU-affiliated engineering colleges (like Ramdeobaba, GHRCE, or YCCE) to leverage their robust campus recruitment programs.<br>
+            3. Target software developer roles in Java, .NET, and Android application programming.
+          </p>
+        `;
+      } else {
+        badge.innerText = "Recommended Pathway: M.Sc. Computer Science (MSCCS)";
+        badge.className = "recommendation-title rec-msc";
+        desc.innerHTML = `
+          <p style="font-weight: 500; font-size: 1.1rem; margin-bottom: 0.8rem;">You have high alignment with the <strong>Scientific Research & Deep Tech AI/ML</strong> track.</p>
+          <p style="font-size: 0.9rem; color: var(--text-muted); text-align: left;">
+            <strong>Next Steps:</strong><br>
+            1. Focus on core computational theory, discrete structures, and data science foundations.<br>
+            2. Take full advantage of the <strong>NEP-2020 Research Project tracks</strong> in Semesters III & IV. Build portfolio projects in Deep Learning, Computer Vision, and Advanced AI.<br>
+            3. Prepare for state or national lecturer qualification tests (NET/SET) if you wish to pursue academic research, lecturing, or enter R&D corporate labs.
+          </p>
+        `;
+      }
+      
+      document.getElementById('quiz-result').style.display = 'block';
+    }
+    
+    function restartQuiz() {
+      startQuiz();
+    }
+    
+    // Bootstrapping
+    window.addEventListener('DOMContentLoaded', () => {
+      animateGauges();
+      renderSyllabus();
+      startQuiz();
+    });
+  </script>
+</body>
+</html>
